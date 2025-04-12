@@ -1,4 +1,6 @@
+package configurate;
+
 interface SupportHandler {
     SupportHandler set_next(SupportHandler handler);
-    void handle();
+    void handle(String issue);
 }
