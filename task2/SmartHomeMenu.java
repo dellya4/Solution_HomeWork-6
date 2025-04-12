@@ -4,11 +4,11 @@ import devices.*;
 import invoker.SmartHomeRemoteControl;
 import java.util.Scanner;
 
-public class SmartHomeMenu {
+public class SmartHomeMenu { // Class for SmartHomeMenu
     private final SmartHomeRemoteControl control;
     private final Thermostat thermostat;
 
-    public SmartHomeMenu(SmartHomeRemoteControl control) {
+    public SmartHomeMenu(SmartHomeRemoteControl control) { // Constructor for SmartHomeMenu (create control, devices and commands)
         this.control = control;
         thermostat = new Thermostat();
         Light light = new Light();
@@ -16,7 +16,6 @@ public class SmartHomeMenu {
 
         thermostat.setCurrentTemp(25);
         control.setCommand("A", new LightCommand(light));
-        control.setCommand("B", new ThermostatCommand(thermostat, 25));
         control.setCommand("C", new PlayMusicCommand(speaker));
     }
 
@@ -31,7 +30,7 @@ public class SmartHomeMenu {
         System.out.println("  exit");
         System.out.println("====================================");
 
-        while (true) {
+        while (true) { // Loop which connect all action
             System.out.print("> ");
             String input = scanner.nextLine().trim().toLowerCase();
 
@@ -42,12 +41,12 @@ public class SmartHomeMenu {
                 case "2":
                     System.out.println("Current temperature: " + thermostat.getCurrentTemp());
                     System.out.print("Input temperature: ");
-                    try {
+                    try { // Check if input is number
                         int temp = Integer.parseInt(scanner.nextLine());
                         Command setTemp = new ThermostatCommand(thermostat, temp);
                         control.setCommand("B", setTemp);
                         control.pressButton("B");
-                    } catch (NumberFormatException e) {
+                    } catch (NumberFormatException e) { // Return error if input is not a number
                         System.out.println("Invalid temperature!");
                     }
                     break;
